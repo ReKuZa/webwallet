@@ -1,21 +1,16 @@
-// server.js
-// where your node app starts
-
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
+const config = require("./config.js");
 const express = require("express");
 const app = express();
 const walletapi = require('turtlecoin-rpc').WalletAPI;
 const wallet = new walletapi({
-  host : "185.8.177.12",
-  port : 9999,
-  password : "viztercoin"
+  host : config.host,
+  port : config.port,
+  password : config.password
 });
+const daemonHost = config.daemonHost;
+const daemonPort = config.daemonPort;
 const multer = require("multer");
 const upload = multer();
-
-// make all the files in 'public' available
-// https://expressjs.com/en/starter/static-files.html
 app.set('view engine', 'pug');
 app.use(express.static("public"));
 app.use(express.json());
@@ -63,7 +58,7 @@ app.get("/transactions", (request, response) => {
 app.post("/create",(request, response) => {
 	var name = request.body.name;
 	var password = request.body.password;
-  wallet.create(name, password,"185.8.177.12",3997).then((resolve) => {
+  wallet.create(name, password,daemonHost,daemonPort).then((resolve) => {
 		response.redirect("/wallet")
 	}).catch((error) => {
 		response.redirect('/wallet');
@@ -72,7 +67,7 @@ app.post("/create",(request, response) => {
 app.post("/open",(request, response) => {
 	var name = request.body.name;
 	var password = request.body.password;
-	wallet.open(name,password,"185.8.177.12",3997).then((resolve) => {
+	wallet.open(name,password,daemonHost,daemonPort).then((resolve) => {
 		response.redirect('/wallet');
 	}).catch((error) => {
 		response.redirect('/wallet');
