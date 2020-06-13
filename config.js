@@ -1,5 +1,6 @@
 //Uses WalletApi
 module.exports.config = {
+  coin : "VizterCoin", //Name Of The Coin
   host : "185.8.177.12", //The Ip Address or Domain Where WalletApi is Hosted
   port : 9999, //The Port where WalletApi is Running
   password : "", //The Password Of The WalletApi
