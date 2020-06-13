@@ -1,0 +1,44 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=Edge')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+    title Viztercoin Wallet
+    //  W3Css 
+    link(rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lobster')
+    style.
+      
+      .w3-lobster {
+              font-family: "Lobster", serif;
+            }
+            .w3-serif {
+              font-family: serif;
+            }
+            
+      
+  body
+    div
+      header.w3-container.w3-deep-purple.w3-text-white.w3-padding-16
+        p.w3-lobster(style='float:left;') VizterCoin Wallet
+        a.w3-lobster(style='float:right;' href='logout') Logout
+      .w3-bar.w3-bar-deep-purple.w3-deep-purple
+        a.w3-bar-item.w3-button.w3-lobster(href='newtransaction').
+          
+          New Transaction
+          
+        a.w3-bar-item.w3-button.w3-lobster(href='transactions').
+          
+          Transactions
+          
+      .w3-container.w3-white.w3-text-black
+        hr
+        br
+        .w3-container.w3-white.w3-text-deep-purple.w3-round.w3-border.w3-border-deep-purple
+          br
+          p.w3-serif#address Wallet Address : #{address}
+          br
+          p.w3-serif#balance Wallet Balance : #{balance}
+          br
+        br
