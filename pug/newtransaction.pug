@@ -1,0 +1,59 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=Edge')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+    title New Transaction
+    //  W3Css 
+    link(rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lobster')
+    style.
+      
+      .w3-lobster {
+              font-family: "Lobster", serif;
+            }
+      
+            .w3-serif {
+              font-family: serif;
+            }
+      
+  body
+    div
+      header.w3-container.w3-deep-purple.w3-text-white.w3-padding-16
+        p.w3-lobster VizterCoin Wallet
+      .w3-bar.w3-bar-deep-purple.w3-deep-purple
+        a.w3-bar-item.w3-button.w3-lobster(href='wallet').
+          
+          Wallet
+          
+        a.w3-bar-item.w3-button.w3-lobster(href='transactions').
+          
+          Transactions
+          
+      .w3-container.w3-white.w3-text-black
+        hr
+        br
+        .w3-container.w3-white.w3-text-deep-purple.w3-round.w3-border.w3-border-deep-purple
+          br
+          p.w3-text-deep-purple.w3-lobster.
+            
+            Create A Transaction
+            
+          br
+          form.w3-round(action="sendtx" method="POST")
+            br
+            label.w3-text-deep-purple.w3-serif.
+              
+              Reciever's Address
+              
+            input.w3-input.w3-round.w3-input(type='text' name='address')
+            br
+            label.w3-text-deep-purple.w3-serif.
+              
+              Amount
+              
+            input.w3-input.w3-round.w3-input(type='number' name='amount')
+            br
+            input.w3-btn.w3-deep-purple.w3-round(type='submit' value='Send')
+            br
