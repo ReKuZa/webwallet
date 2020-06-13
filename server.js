@@ -7,6 +7,7 @@ const wallet = new walletapi({
   port : config.port,
   password : config.password
 });
+const coin = config.coin;
 const daemonHost = config.daemonHost;
 const daemonPort = config.daemonPort;
 const multer = require("multer");
@@ -17,17 +18,22 @@ app.use(express.json());
 app.use(upload.array());
 app.use(express.urlencoded({ extended: false }));
 
-// https://expressjs.com/en/starter/basic-routing.html
 app.get("/", (request, response) => {
-  response.render(__dirname + "/pug/index.pug");
+  response.render(__dirname + "/pug/index.pug",{
+    coin : coin
+   });
 });
 
 app.get("/login", (request, response) => {
-  response.render(__dirname + "/pug/loginwallet.pug");
+  response.render(__dirname + "/pug/loginwallet.pug",{
+    coin : coin
+  });
 });
 
 app.get("/newwallet", (request, response) => {
-  response.render(__dirname + "/pug/newwallet.pug");
+  response.render(__dirname + "/pug/newwallet.pug",{
+    coin : coin
+  });
 });
 
 app.get("/wallet", (request, response) => {
@@ -36,19 +42,23 @@ app.get("/wallet", (request, response) => {
       response.render(__dirname + "/pug/wallet.pug",{
         balance : balance.unlocked,
         address : address
+        coin : coin
       });
     }).catch((error) => console.log(error));
   }).catch((error) => console.log(error));
 });
 
 app.get("/newtransaction", (request, response) => {
-  response.render(__dirname + "/pug/newtransaction.pug");
+  response.render(__dirname + "/pug/newtransaction.pug",{
+    coin : coin
+  });
 });
 
 app.get("/transactions", (request, response) => {
   wallet.transactions().then((txs) => {
     response.render(__dirname + "/pug/transactions.pug",{
       txs : txs
+      coin : coin
     });
   }).catch((error) => {
     response.redirect("/wallet");
