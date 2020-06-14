@@ -3,13 +3,13 @@ const express = require("express");
 const app = express();
 const walletapi = require('turtlecoin-rpc').WalletAPI;
 const wallet = new walletapi({
-  host : config.host,
-  port : config.port,
-  password : config.password
+  host : config.config.host,
+  port : config.config.port,
+  password : config.config.password
 });
-const coin = config.coin;
-const daemonHost = config.daemonHost;
-const daemonPort = config.daemonPort;
+const coin = config.config.coin;
+const daemonHost = config.config.daemonHost;
+const daemonPort = config.config.daemonPort;
 const multer = require("multer");
 const upload = multer();
 app.set('view engine', 'pug');
@@ -41,7 +41,7 @@ app.get("/wallet", (request, response) => {
     wallet.balance().then((balance) => {
       response.render(__dirname + "/pug/wallet.pug",{
         balance : balance.unlocked,
-        address : address
+        address : address,
         coin : coin
       });
     }).catch((error) => console.log(error));
@@ -57,7 +57,7 @@ app.get("/newtransaction", (request, response) => {
 app.get("/transactions", (request, response) => {
   wallet.transactions().then((txs) => {
     response.render(__dirname + "/pug/transactions.pug",{
-      txs : txs
+      txs : txs,
       coin : coin
     });
   }).catch((error) => {
@@ -68,10 +68,18 @@ app.get("/transactions", (request, response) => {
 app.post("/create",(request, response) => {
 	var name = request.body.name;
 	var password = request.body.password;
-  wallet.create(name, password,daemonHost,daemonPort).then((resolve) => {
-		response.redirect("/wallet")
+  wallet.close().then((response) => {
+    wallet.create(name,password,daemonHost,daemonPort).then((resolve) => {
+     response.redirect("/wallet");
+    }).catch((error) => {
+      response.send("Error, Please Report It To Our Github!");
+    });
 	}).catch((error) => {
-		response.redirect('/wallet');
+    wallet.create(name,password,daemonHost,daemonPort).then((resolve) => {
+      response.redirect("/wallet");
+    }).catch((error) => {
+      response.send("Error, Please Report It To Our Github!");
+    });
 	});
 });
 app.post("/open",(request, response) => {
